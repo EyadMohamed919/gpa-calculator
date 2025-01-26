@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+#root{
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(rgb(255, 250, 245), rgb(225, 206, 188));
+}
