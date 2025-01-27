@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import ErrorNotification from "./ErrorNotification";
 
@@ -10,8 +9,8 @@ function App() {
       <i class="fa-solid fa-calculator mr-3 drop-shadow-md text-green-700"></i>GPA Calculator</h1>
       <h2 className='text-3xl '>Your GPA is</h2>
       <div className="flex flex-row mt-2 justify-center items-end">
-        <h1 id="gpaScore" className="text-5xl">2.0</h1>
-        <h3 className="text-xl">/4.0</h3>
+        <h1 id="gpaScore" className="text-5xl">4</h1>
+        <h3 className="text-xl">/4</h3>
       </div>
     <ErrorNotification></ErrorNotification>
       <div className="mt-6 w-fit h-9">
