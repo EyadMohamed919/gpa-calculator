@@ -3,17 +3,17 @@ import ErrorNotification from "./ErrorNotification";
 
 function App() {
   return (
-    <div className="w-full h-full flex flex-col 
+    <div id="appContainer" className="w-full h-full flex flex-col 
     justify-start items-center" >
       <h1 className="text-5xl m-auto mt-28 mb-10 text-green-900">
       <i class="fa-solid fa-calculator mr-3 drop-shadow-md text-green-700"></i>GPA Calculator</h1>
-      <h2 className='text-3xl '>Your GPA is</h2>
+      <h2 className='text-3xl'>Your GPA is</h2>
       <div className="flex flex-row mt-2 justify-center items-end">
         <h1 id="gpaScore" className="text-5xl">4</h1>
         <h3 className="text-xl">/4</h3>
       </div>
     <ErrorNotification></ErrorNotification>
-      <div className="mt-6 w-fit h-9">
+      <div id="inputBar" className="mt-6 w-fit h-9">
         <input type="text" placeholder="Enter subject name" name="subjectName" id="subjectName"
         className="w-60 h-9 border-b-2 mt-0 mr-1 pl-1 rounded-sm border-green-700 shadow-md"></input>
         <input type="number" min={1} placeholder="Enter credit hours" name="subjectName" id="creditHours"
@@ -27,11 +27,14 @@ function App() {
           <option value="0">F</option>
         </select>
 
-        <button onClick={()=>addSubject()} value="Add" 
+        <button onClick={()=>addSubject()} 
         className="w-16 h-9 border-b-2 border-green-700 ml-1 rounded-sm text-white bg-green-700">Add</button>
 
-        <button onClick={()=>clearData()} value="Remove" 
+        <button onClick={()=>clearData()}
         className="w-16 h-9 border-b-2 border-green-700 ml-1 rounded-sm text-white bg-green-700">Clear</button>
+
+        <button onClick={()=>downloadPDF()}
+        className="w-16 h-9 border-b-2 border-green-700 ml-1 rounded-sm text-white bg-green-700"><i class="fa-solid fa-download"></i></button>
       </div>
 
         <table className="w-[800px] rounded-md p-3 mt-6 bg-green-900 text-white" id="subjectsTable">
@@ -46,6 +49,8 @@ function App() {
   );
 }
 
+
+// Global Variables
 var gradeToLetter = {
   4:"A",
   3:"B",
@@ -54,7 +59,6 @@ var gradeToLetter = {
   0:"F"
 };
 
-// Global Variables
 var totalGrade = 0.0;
 var totalCredit = 0.0;
 var isNotificationVisible = false;
@@ -139,6 +143,29 @@ function clearData()
   <td>Grade Points</td>
   </tr>`;
   
+}
+
+function downloadPDF()
+{
+  let table = document.getElementById("subjectsTable");
+  let inputBar = document.getElementById("inputBar");
+  let appContainer = document.getElementById("appContainer");
+
+  inputBar.style.display = "none";
+
+  var pdfSettings = {
+    margin:       0,
+    filename:     'GPA_Report.pdf',
+    image:        { type: 'jpeg', quality: 0.98 },
+    html2canvas:  { scale: 2 },
+    jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+  };
+
+  window.html2pdf().set(pdfSettings).from(appContainer).save();
+
+  setTimeout(()=>{
+    inputBar.style.display = "flex";
+  }, 1200);
 }
 
 export default App;
